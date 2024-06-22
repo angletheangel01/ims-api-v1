@@ -1,0 +1,10 @@
+const express=require(`express`)
+const ProductController=require(`../../controller/product.controller`)
+const { apiKeyCheck } = require("../../authentication/authUtils")
+const { asyncHandler } = require("../../utils")
+const { grantAccess } = require("../../middleware/rbac/rbac")
+const router=express.Router()
+router.use(asyncHandler(apiKeyCheck))
+router.post(`/add`,asyncHandler(ProductController.addProduct))
+router.get(`/list`,asyncHandler(ProductController.listProducts))
+module.exports=router
